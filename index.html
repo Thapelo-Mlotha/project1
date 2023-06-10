@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUSIC MUSCI</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
+    <style>
+        .alarmPOP {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.alarmPOP-content {
+  background-color: #ff0000;
+  padding: 20px;
+  width: 250px;
+  padding: 25px;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.alarmPOP-close {
+  position: relative;
+  float: right;
+  cursor: pointer;
+  font-size: 25px;
+}
+.alarmPOP-time{
+    font-size: 70px;
+}
+
+
+    </style>
+</head>
+<body>
+    <button onclick="openModal()">Open Modal</button>
+
+    <div id="alarmPOP" class="alarmPOP">
+        <div class="alarmPOP-content">
+            <img width="84" height="84" src="https://img.icons8.com/cute-clipart/64/alarm-clock.png" alt="alarm-clock"/>
+            <h2>ALARM NAME</h2>
+            <h1 class="alarmPOP-time">10:20</h1>
+            <span class="alarmPOP-close" onclick="closeModal()"><button class="alarmPOP-stopBtn" onclick="closeModal()" >STOP</button></span>
+            
+        </div>
+    </div>
+
+    <input type="file" id="song-input" accept=".mp3, .wav">
+
+    <img id="cover">
+    <p id="title">tittle</p>
+    <p id="artist">artist</p>
+    <p id="album">album</p>
+    <p id="genre">genre</p>
+    
+</body>
+<img src="" alt="">
+<script>
+    function openModal() {
+  document.getElementById("alarmPOP").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("alarmPOP").style.display = "none";
+}
+
+    
+    // window.addEventListener("load", (event) => {
+    //     const fileLocation = "MFR-Souls-ft-Mandy-ZA-Bozza-Manu-Worldstar-Forever.mp3";
+    //     const song = new File([fileLocation], "MFR-Souls-ft-Mandy-ZA-Bozza-Manu-Worldstar-Forever.mp3", { type: "audio/mp3" });
+        
+    //     console.log(song);
+    //     jsmediatags.read(song, {
+    //     onSuccess: function(tag) {
+    //         console.log(tag);
+    //         // Rest of your code for reading metadata
+    //     },
+    //     onError: function(error) {
+    //         console.log(error);
+    //     }
+    //     });
+
+    // });   
+    document.querySelector("#song-input").addEventListener("change", (event) => {
+  console.log(event);
+  const song = event.target.files[0]
+  console.log(song);
+  jsmediatags.read(song, {
+      onSuccess: function(tag) {
+        console.log(tag)
+        // Array buffer to base64
+        const data = tag.tags.picture.data
+        const format = tag.tags.picture.format
+        let base64String = ""
+        for (let i = 0; i < data.length; i++) {
+          base64String += String.fromCharCode(data[i])
+        }
+        // Output the metadata
+        document.querySelector("#cover").src = `data:${format};base64,${window.btoa(base64String)}`
+        document.querySelector("#title").textContent = tag.tags.title
+        document.querySelector("#artist").textContent = tag.tags.artist
+        document.querySelector("#album").textContent = tag.tags.album
+        document.querySelector("#genre").textContent = tag.tags.genre
+        },
+        onError: function(error) {
+          console.log(error)
+        }
+    })
+})
+
+ 
+    
+</script>
+</html>
