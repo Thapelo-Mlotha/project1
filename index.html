@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MUSIC MUSCI</title>
+    <title>MUSIC META-DATA</title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
     <style>
@@ -81,23 +81,6 @@ function closeModal() {
   document.getElementById("alarmPOP").style.display = "none";
 }
 
-    
-    // window.addEventListener("load", (event) => {
-    //     const fileLocation = "MFR-Souls-ft-Mandy-ZA-Bozza-Manu-Worldstar-Forever.mp3";
-    //     const song = new File([fileLocation], "MFR-Souls-ft-Mandy-ZA-Bozza-Manu-Worldstar-Forever.mp3", { type: "audio/mp3" });
-        
-    //     console.log(song);
-    //     jsmediatags.read(song, {
-    //     onSuccess: function(tag) {
-    //         console.log(tag);
-    //         // Rest of your code for reading metadata
-    //     },
-    //     onError: function(error) {
-    //         console.log(error);
-    //     }
-    //     });
-
-    // });   
     document.querySelector("#song-input").addEventListener("change", (event) => {
   console.log(event);
   const song = event.target.files[0]
